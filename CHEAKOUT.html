@@ -1,0 +1,491 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Rubans Fashion - Checkout</title>
+      <style>
+          :root {
+              --primary-color: #FF1493;
+              --secondary-color: #FFF0F5;
+              --accent-color: #FF69B4;
+              --text-color: #4B0082;
+          }
+
+          * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+          }
+
+          body {
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              line-height: 1.6;
+              color: var(--text-color);
+              background-color: var(--secondary-color);
+          }
+
+          header {
+              background-color: var(--primary-color);
+              color: white;
+              padding: 1rem 0;
+          }
+
+          nav {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 0 2rem;
+          }
+
+          .logo {
+              font-size: 1.5rem;
+              font-weight: bold;
+          }
+
+          main {
+              max-width: 800px;
+              margin: 2rem auto;
+              padding: 2rem;
+              background-color: white;
+              border-radius: 10px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+
+          h1 {
+              text-align: center;
+              margin-bottom: 2rem;
+              color: var(--primary-color);
+          }
+
+          .checkout-form {
+              display: grid;
+              gap: 1.5rem;
+          }
+
+          .form-group {
+              display: grid;
+              gap: 0.5rem;
+          }
+
+          label {
+              font-weight: bold;
+          }
+
+          input, select, textarea {
+              padding: 0.8rem;
+              border: 1px solid #ddd;
+              border-radius: 5px;
+              font-size: 1rem;
+              width: 100%;
+          }
+
+          .order-summary {
+              margin-top: 2rem;
+              padding: 1rem;
+              background-color: var(--secondary-color);
+              border-radius: 5px;
+          }
+
+          .order-total {
+              font-size: 1.2rem;
+              font-weight: bold;
+              text-align: right;
+              margin-top: 1rem;
+          }
+
+          .submit-btn {
+              background-color: var(--accent-color);
+              color: white;
+              border: none;
+              padding: 1rem;
+              font-size: 1.1rem;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+              margin-top: 1rem;
+              width: 100%;
+          }
+
+          .submit-btn:hover {
+              background-color: var(--primary-color);
+          }
+
+          footer {
+              background-color: var(--primary-color);
+              color: white;
+              text-align: center;
+              padding: 1rem 0;
+              margin-top: 2rem;
+          }
+
+          .payment-details {
+              margin-top: 1rem;
+          }
+
+          #card-details, #upi-details, #netbanking-details, #wallet-details {
+              display: none;
+          }
+
+          .card-extra-details {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 1rem;
+              margin-top: 0.5rem;
+          }
+
+          #verify-upi {
+              background-color: var(--accent-color);
+              color: white;
+              border: none;
+              padding: 0.5rem 1rem;
+              border-radius: 5px;
+              cursor: pointer;
+              margin-top: 0.5rem;
+          }
+
+          .order-item {
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+              margin-bottom: 1rem;
+              padding: 0.5rem;
+              background-color: white;
+              border-radius: 5px;
+          }
+
+          .item-details {
+              flex-grow: 1;
+          }
+
+          .price-breakdown {
+              margin-top: 1rem;
+              border-top: 1px solid #ddd;
+              padding-top: 1rem;
+          }
+
+          .loading-spinner {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(255, 255, 255, 0.8);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              z-index: 1000;
+          }
+
+          .confirmation-modal {
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              background: white;
+              padding: 2rem;
+              border-radius: 10px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+              z-index: 1001;
+              max-width: 90%;
+              width: 500px;
+          }
+      </style>
+  </head>
+  <body>
+      <header>
+          <nav>
+              <div class="logo">Rubans Fashion</div>
+          </nav>
+      </header>
+        <main>
+            <h1>Checkout</h1>
+            <form class="checkout-form" id="checkout-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="example@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter 10-digit number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" rows="3" placeholder="Enter your complete address" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" placeholder="Enter your city" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state" required>
+                        <option value="">Select State</option>
+                        <option value="AP">Andhra Pradesh</option>
+                        <option value="KA">Karnataka</option>
+                        <option value="KL">Kerala</option>
+                        <option value="MA">Madhya Pradesh</option>
+                        <option value="GJ">Gujarat</option>
+                        <option value="MH">Maharashtra</option>
+                        <option value="TN">Tamil Nadu</option>
+                        <option value="TG">Telangana</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pincode">PIN Code</label>
+                    <input type="text" id="pincode" placeholder="Enter PIN code" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="payment">Payment Method</label>
+                    <select id="payment" required onchange="handlePaymentChange()" title="Select your payment method">
+                        <option value="">Select Payment Method</option>
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="upi">UPI</option>
+                        <option value="netbanking">Net Banking</option>
+                        <option value="wallet">Digital Wallet</option>
+                        <option value="cod">Cash on Delivery</option>
+                    </select>
+                    <div id="payment-details" class="payment-details">
+                        <div id="card-details">
+                            <input type="text" id="card-number" placeholder="Card Number" pattern="[0-9]{16}" required>
+                            <div class="card-extra-details">
+                                <input type="text" id="card-expiry" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/([0-9]{2})" required>
+                                <input type="password" id="card-cvv" placeholder="CVV" pattern="[0-9]{3}" required>
+                            </div>
+                            <input type="text" id="card-name" placeholder="Card Holder Name" pattern="[A-Za-z\s]+" required>
+                        </div>
+                        <div id="upi-details">
+                            <input type="text" id="upi-id" placeholder="Enter UPI ID (example@bank)" pattern="[a-zA-Z0-9.\-_]{2,256}@[a-zA-Z]{2,64}" required>
+                            <button type="button" id="verify-upi" onclick="verifyUPI()">Verify UPI</button>
+                        </div>
+                        <div id="netbanking-details">
+                            <select id="bank-select" required title="Select your bank">
+                                <option value="">Select Bank</option>
+                                <option value="sbi">State Bank of India</option>
+                                <option value="hdfc">HDFC Bank</option>
+                                <option value="icici">ICICI Bank</option>
+                                <option value="axis">Axis Bank</option>
+                                <option value="kotak">Kotak Mahindra Bank</option>
+                                <option value="Bank Of Baroda">Bank Of Baroda</option>
+                            </select>
+                        </div>
+                        <div id="wallet-details">
+                            <select id="wallet-select" required title="Select your digital wallet">
+                                <option value="">Select Wallet</option>
+                                <option value="paytm">Paytm</option>
+                                <option value="phonepe">PhonePe</option>
+                                <option value="gpay">Google Pay</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div id="order-items"></div>
+                    <div class="price-breakdown">
+                        <p>Subtotal: ₹<span id="subtotal">0.00</span></p>
+                        <p>Shipping: ₹<span id="shipping">0.00</span></p>
+                        <p>Tax (18%): ₹<span id="tax">0.00</span></p>
+                        <p class="order-total">Total: ₹<span id="total-amount">0.00</span></p>
+                    </div>
+                </div>
+
+                          <button type="submit" class="submit-btn" onclick="confirmOrder()">Place Order</button>
+                          <script>
+                              function confirmOrder() {
+                                  event.preventDefault();
+                                  const name = document.getElementById('name').value;
+                                  const email = document.getElementById('email').value;
+                                  const phone = document.getElementById('phone').value;
+                                  const address = document.getElementById('address').value;
+                                  const city = document.getElementById('city').value;
+                                  const state = document.getElementById('state').value;
+                                  const pincode = document.getElementById('pincode').value;
+                                
+                                  const popup = document.createElement('div');
+                                  popup.className = 'overlay-popup';
+                                  popup.innerHTML = `
+                                      <div class="popup-content">
+                                          <div class="success-checkmark">
+                                              <div class="check-icon">
+                                                  <span class="icon-line line-tip"></span>
+                                                  <span class="icon-line line-long"></span>
+                                              </div>
+                                          </div>
+                                          <h3 style="color: #2c3e50; font-size: 28px; margin-bottom: 25px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Order Confirmed!</h3>
+                                          <p style="color: #34495e; font-size: 18px; margin: 15px 0; line-height: 1.8; font-family: 'Open Sans', sans-serif;">🎉 Thank you for shopping with us! Your order has been successfully placed.</p>
+                                          <p style="color: #34495e; font-size: 18px; margin: 15px 0; line-height: 1.8; font-family: 'Open Sans', sans-serif;">📧 A confirmation email will be sent to your registered email address shortly.</p>
+                                          <div class="order-animation">
+                                              <div class="package-icon">📦</div>
+                                          </div>
+                                          <div class="receipt" style="margin-top: 20px; padding: 20px; border: 1px dashed #ccc; text-align: left; animation: fadeIn 2s;" id="receipt-section">
+                                              <h4 style="color: #2c3e50;">Order Receipt</h4>
+                                              <p>Order ID: #${Math.floor(Math.random() * 1000000)}</p>
+                                              <p>Date: ${new Date().toLocaleDateString()}</p>
+                                              <p>Name: ${name}</p>
+                                              <p>Email: ${email}</p>
+                                              <p>Phone: ${phone}</p>
+                                              <p>Shipping Address: ${address}, ${city}, ${state} - ${pincode}</p>
+                                              <div id="receipt-items"></div>
+                                              <hr>
+                                              <p>Total Amount: ₹<span id="receipt-total"></span></p>
+                                          </div>
+                                          <button onclick="window.print()" style="margin-top: 15px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Print Receipt</button>
+                                      </div>                                     `;
+
+                                document.body.appendChild(popup);                                
+                                // Fill receipt details
+                                const receiptItems = document.getElementById('receipt-items');
+                                const receiptTotal = document.getElementById('receipt-total');
+                                let total = 0;
+                                cart.forEach(item => {
+                                    const itemDiv = document.createElement('div');
+                                    itemDiv.innerHTML = `${item.name} x ${item.quantity} - ₹${item.price * item.quantity}`;
+                                    receiptItems.appendChild(itemDiv);
+                                    total += item.price * item.quantity;
+                                });
+                                receiptTotal.textContent = total.toFixed(2);
+
+                                // Auto close after 10 seconds
+                                setTimeout(() => {
+                                    popup.remove();
+                                    localStorage.removeItem('cart');
+                                    cart = [];
+                                    displayOrderSummary();
+                                }, 10000);
+                            }                        </script>
+                        <style>
+                            .overlay-popup {
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                background: rgba(0,0,0,0.5);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                z-index: 1000;
+                            }
+                            .popup-content {
+                                background: white;
+                                padding: 20px;
+                                border-radius: 5px;
+                                text-align: center;
+                            }
+                        </style>          </form>
+      </main>
+
+      <footer>
+          <p>© 2024 Rubans Fashion. All rights reserved.</p>
+      </footer>
+
+      <script>
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          const orderItems = document.getElementById('order-items');
+          const totalAmount = document.getElementById('total-amount');
+          const checkoutForm = document.getElementById('checkout-form');
+          const paymentDetails = document.getElementById('payment-details');
+          const cardDetails = document.getElementById('card-details');
+          const upiDetails = document.getElementById('upi-details');
+          const netbankingDetails = document.getElementById('netbanking-details');
+          const walletDetails = document.getElementById('wallet-details');
+
+          function handlePaymentChange() {
+              const paymentMethod = document.getElementById('payment').value;
+              const allDetails = [cardDetails, upiDetails, netbankingDetails, walletDetails];
+            
+              allDetails.forEach(detail => detail.style.display = 'none');
+            
+              switch(paymentMethod) {
+                  case 'card':
+                      cardDetails.style.display = 'block';
+                      break;
+                  case 'upi':
+                      upiDetails.style.display = 'block';
+                      break;
+                  case 'netbanking':
+                      netbankingDetails.style.display = 'block';
+                      break;
+                  case 'wallet':
+                      walletDetails.style.display = 'block';
+                      break;
+              }
+          }
+
+          function verifyUPI() {
+              const upiId = document.getElementById('upi-id').value;
+              if (upiId) {
+                  alert('UPI verification in progress...');
+                  setTimeout(() => alert('UPI ID verified successfully!'), 1500);
+              }
+          }
+
+          function calculatePrices() {
+              let subtotal = 0;
+              cart.forEach(item => {
+                  subtotal += item.price * item.quantity;
+              });
+
+              const shipping = subtotal > 1000 ? 0 : 100;
+              const tax = subtotal * 0.18;
+              const total = subtotal + shipping + tax;
+
+              document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+              document.getElementById('shipping').textContent = shipping.toFixed(2);
+              document.getElementById('tax').textContent = tax.toFixed(2);
+              totalAmount.textContent = total.toFixed(2);
+          }
+
+          function displayOrderSummary() {
+              orderItems.innerHTML = '';
+              cart.forEach(item => {
+                  const itemDiv = document.createElement('div');
+                  itemDiv.className = 'order-item';
+                  itemDiv.innerHTML = `
+                      <img src="${item.image}" alt="${item.name}" width="50">
+                      <div class="item-details">
+                          <h4>${item.name}</h4>
+                          <p>Quantity: ${item.quantity}</p>
+                          <p>Price: ₹${item.price.toFixed(2)}</p>
+                      </div>
+                  `;
+                  orderItems.appendChild(itemDiv);
+              });
+              calculatePrices();
+          }
+
+          // Initialize the page
+          displayOrderSummary();
+          handlePaymentChange();
+
+          // Form submission handler
+          checkoutForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              const loadingSpinner = document.createElement('div');
+              loadingSpinner.className = 'loading-spinner';
+              loadingSpinner.innerHTML = '<div class="spinner"></div>';
+              document.body.appendChild(loadingSpinner);
+
+              setTimeout(() => {
+                  loadingSpinner.remove();
+                  localStorage.removeItem('cart');
+                  window.location.href = 'home.html';
+              }, 20000);
+          }); 
+      </script>
+  </body>

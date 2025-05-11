@@ -1,0 +1,219 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>About - RUBANS Fashion Wear</title>
+      <style>
+          :root {
+              --primary-color: #FF1493;
+              --secondary-color: #FFC0CB;
+              --accent-color: #FF69B4;
+              --text-color: #2b2b2b;
+              --white: #ffffff;
+              --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+              --transition: 0.3s ease;
+          }
+
+          * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+
+          body {
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              line-height: 1.6;
+              color: var(--text-color);
+              background-color: var(--secondary-color);
+          }
+
+          .panel-container {
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 50px 20px;
+          }
+
+          .panel {
+              background-color: var(--white);
+              border-radius: 15px;
+              box-shadow: var(--shadow);
+              margin-bottom: 30px;
+              overflow: hidden;
+          }
+
+          .panel-header {
+              background-color: var(--primary-color);
+              color: var(--white);
+              padding: 20px;
+              text-align: center;
+          }
+
+          .panel-header h2 {
+              font-size: 2.5rem;
+              margin-bottom: 10px;
+          }
+
+          .panel-content {
+              padding: 30px;
+          }
+
+          .panel-grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 20px;
+          }
+
+          .panel-item {
+              background-color: var(--secondary-color);
+              padding: 20px;
+              border-radius: 10px;
+              text-align: center;
+              transition: var(--transition);
+          }
+
+          .panel-item:hover {
+              transform: translateY(-5px);
+              box-shadow: var(--shadow);
+          }
+
+          .panel-item i {
+              font-size: 2rem;
+              color: var(--primary-color);
+              margin-bottom: 15px;
+          }
+
+          .panel-item h3 {
+              color: var(--primary-color);
+              margin-bottom: 10px;
+          }
+
+          .team-panel {
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 20px;
+          }
+
+          .team-card {
+              background-color: var(--secondary-color);
+              border-radius: 10px;
+              overflow: hidden;
+              transition: var(--transition);
+              justify-content: center;
+              align-items: center;
+          }
+
+          .team-card:hover {
+              transform: translateY(-5px);
+              box-shadow: var(--shadow);
+          }
+
+          .team-card img {
+              width: 100%;
+              height: 200px;
+              object-fit: cover;
+          }
+
+          .team-info {
+              padding: 15px;
+              text-align: center;
+          }
+
+          .team-info h3 {
+              color: var(--primary-color);
+              margin-bottom: 5px;
+          }
+
+          @media (max-width: 768px) {
+              .panel-grid {
+                  grid-template-columns: 1fr;
+              }
+            
+              .team-panel {
+                  grid-template-columns: repeat(2, 1fr);
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <div class="panel-container">
+          <div class="panel">
+              <div class="panel-header">
+                  <h2>Welcome to RUBANS Fashion</h2>
+                  <p>Innovating Style Since 2010</p>
+              </div>
+              <div class="panel-content">
+                  <p>RUBANS Fashion Wear represents the perfect blend of contemporary style and timeless elegance. Since our establishment in 2010, we've been dedicated to creating fashion that empowers and inspires. Our commitment to quality and innovation has made us a leading name in the fashion industry.</p>
+              </div>
+          </div>
+
+          <div class="panel">
+              <div class="panel-header">
+                  <h2>Our Core Values</h2>
+              </div>
+              <div class="panel-content">
+                  <div class="panel-grid">
+                      <div class="panel-item">
+                          <i class="fas fa-leaf"></i>
+                          <h3>Sustainability</h3>
+                          <p>Committed to eco-friendly fashion and sustainable practices</p>
+                      </div>
+                      <div class="panel-item">
+                          <i class="fas fa-star"></i>
+                          <h3>Quality</h3>
+                          <p>Premium materials and exceptional craftsmanship</p>
+                      </div>
+                      <div class="panel-item">
+                          <i class="fas fa-heart"></i>
+                          <h3>Community</h3>
+                          <p>Building lasting relationships with our customers</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="panel">
+              <div class="panel-header">
+                  <h2>Our Team</h2>
+              </div>
+              <div class="panel-content">
+                  <div class="team-panel">
+                      <div class="team-card">
+                          <div class="team-photo">
+                              <img src="https://i.ibb.co/rGT2hTV/aditi-copy.jpg" alt="Aditi Rabari">
+                          </div>
+                          <div class="team-info">
+                              <h3>Aditi Rabari</h3>
+                              <p>Creative Director</p>
+                          </div>
+                      </div>
+                      <div class="team-card">
+                          <div class="team-photo">
+                              <img src="https://i.ibb.co/2Y8fDZM/grishma-copy.jpg" alt="Grishma Parmar">
+                          </div>
+                          <div class="team-info">
+                              <h3>Grishma Parmar</h3>
+                              <p>Head Designer</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+      <script>
+          window.addEventListener('scroll', function() {
+              const elements = document.querySelectorAll('.panel-item, .team-card');
+              elements.forEach(element => {
+                  const position = element.getBoundingClientRect();
+                  if(position.top < window.innerHeight) {
+                      element.style.opacity = '1';
+                      element.style.transform = 'translateY(0)';
+                  }
+              });
+          });
+      </script>
+  </body>
+  </html>
